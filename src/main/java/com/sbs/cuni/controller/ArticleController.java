@@ -169,10 +169,28 @@ public class ArticleController {
 			long boardId) {
 		param.put("id", id);
 
+		long loginedMemberId = (long) session.getAttribute("loginedMemberId");
+
+		Article article = articleService.getOne(param);
+
+		String msg = "";
+
+		String resultCode = "";
+
+		if (loginedMemberId != article.getMemberId()) {
+			msg = "삭제권한이 없습니다.";
+
+			model.addAttribute("alertMsg", msg);
+
+			model.addAttribute("historyBack", true);
+
+			return "common/redirect";
+		}
+
 		Map<String, Object> deleteRs = articleService.delete(param);
 
-		String msg = (String) deleteRs.get("msg");
-		String resultCode = (String) deleteRs.get("resultCode");
+		msg = (String) deleteRs.get("msg");
+		resultCode = (String) deleteRs.get("resultCode");
 
 		if (resultCode.startsWith("S-")) {
 			String redirectUrl = "/article/list?boardId=" + boardId;
