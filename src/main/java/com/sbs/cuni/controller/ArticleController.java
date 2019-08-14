@@ -1,6 +1,7 @@
 package com.sbs.cuni.controller;
 
 import java.util.HashMap;
+import com.sbs.cuni.dto.Member;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,11 +81,20 @@ public class ArticleController {
 	}
 
 	@RequestMapping("/article/add")
-	public String showAdd(long boardId, Model model) {
+	public String showAdd(long boardId, Model model, HttpServletRequest request) {
 		Board board = articleService.getBoard(boardId);
 
 		model.addAttribute("board", board);
 
+		// 수정내역
+		boolean hasAPermmision = true;
+
+		Member loginedMember = (Member) request.getAttribute("loginedMember");
+
+		if (boardId == 1 && loginedMember.getPermissionLevel() == 0) {
+			hasAPermmision = false;
+		}
+		// 수정내역
 		return "article/add";
 	}
 
@@ -155,7 +165,8 @@ public class ArticleController {
 	}
 
 	@RequestMapping("/article/doDelete")
-	public String doDelete(Model model, @RequestParam Map<String, Object> param, HttpSession session, long id, long boardId) {
+	public String doDelete(Model model, @RequestParam Map<String, Object> param, HttpSession session, long id,
+			long boardId) {
 		param.put("id", id);
 
 		Map<String, Object> deleteRs = articleService.delete(param);

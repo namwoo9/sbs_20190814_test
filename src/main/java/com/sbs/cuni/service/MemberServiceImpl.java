@@ -53,7 +53,9 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		loginedMemberId = loginedMember.getId();
-
+		
+		
+		
 		resultCode = "S-1";
 		msg = "로그인 되었습니다.";
 
