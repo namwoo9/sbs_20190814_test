@@ -40,6 +40,10 @@
 	display: block;
 }
 
+.deletable a.deletable-item, .editable a.editable-item {
+	display: inline-block;
+}
+
 .article-replies-list tr.edit-mode .read-mode-visible {
 	display: none;
 }
@@ -77,7 +81,8 @@
 
 	<div class="add-reply-form-box con table-common">
 
-		<form name="add-reply-form" onsubmit="Article__doAddReply(this); return false;">
+		<form name="add-reply-form"
+			onsubmit="Article__doAddReply(this); return false;">
 			<input type="hidden" name="articleId" value="${article.id}">
 			<table>
 				<colgroup>
