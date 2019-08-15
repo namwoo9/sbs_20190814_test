@@ -120,6 +120,7 @@
 				<th>ID</th>
 				<th>등록날짜</th>
 				<th>내용</th>
+				<th>작성자</th>
 				<th>비고</th>
 			</tr>
 		</thead>
