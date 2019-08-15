@@ -255,14 +255,30 @@ public class ArticleController {
 			e.printStackTrace();
 		}
 
+		Map<String, Object> rs = new HashMap<>();
+		String msg = "";
+		String resultCode = "";
+
+		long loginedMemberId = (long) session.getAttribute("loginedMemberId");
+
+		ArticleReply ar = articleService.getReply(param);
+
+		if (loginedMemberId != ar.getMemberId()) {
+			msg = "댓글을 수정할 권한이 없습니다.";
+			resultCode = "F-5";
+
+			rs = Maps.of("msg", msg, "resultCode", resultCode);
+
+			return rs;
+		}
+
 		param.put("id", id);
 
 		Map<String, Object> updateRs = articleService.updateReply(param);
 
-		String msg = (String) updateRs.get("msg");
-		String resultCode = (String) updateRs.get("resultCode");
-
-		Map<String, Object> rs = Maps.of("msg", msg, "resultCode", resultCode);
+		msg = (String) updateRs.get("msg");
+		resultCode = (String) updateRs.get("resultCode");
+		rs = Maps.of("msg", msg, "resultCode", resultCode);
 
 		return rs;
 	}

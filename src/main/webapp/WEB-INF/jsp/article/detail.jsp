@@ -7,6 +7,10 @@
 <%@ include file="../part/head.jspf"%>
 <script>
 	var articleId = parseInt('${param.id}');
+	var loginedMemberId = $
+	{
+		loginedMemberId
+	};
 </script>
 
 <script>
