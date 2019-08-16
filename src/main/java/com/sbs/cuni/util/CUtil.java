@@ -39,6 +39,10 @@ public class CUtil {
 		return new TempKey().getKey();
 	}
 
+	public static String getTemporaryPassword() {
+		return new TemporaryPassword().getTemporaryPassword();
+	}
+
 }
 
 class TempKey {
@@ -53,6 +57,31 @@ class TempKey {
 	}
 
 	private String makeKey() {
+		StringBuffer buffer = new StringBuffer();
+		while (buffer.length() < length) {
+			Random random = new Random();
+			int key = random.nextInt(75) + 48;
+			if ((key >= 48 && 57 >= key) || (key >= 65 && 90 >= key) || (key >= 97 && 122 >= key)) {
+				buffer.append((char) key);
+			}
+		}
+
+		return buffer.toString();
+	}
+}
+
+class TemporaryPassword {
+	private int length;
+
+	public TemporaryPassword() {
+		length = 10;
+	}
+
+	public String getTemporaryPassword() {
+		return makeTemporaryPassword();
+	}
+
+	private String makeTemporaryPassword() {
 		StringBuffer buffer = new StringBuffer();
 		while (buffer.length() < length) {
 			Random random = new Random();

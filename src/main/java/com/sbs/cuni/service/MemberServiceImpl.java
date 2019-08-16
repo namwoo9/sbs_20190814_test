@@ -129,7 +129,7 @@ public class MemberServiceImpl implements MemberService {
 		String resultCode = null;
 		MailHandler mail;
 		int loginedMemberId = member.getId();
-		String temporaryPassword = CUtil.getTempKey();
+		String temporaryPassword = CUtil.getTemporaryPassword();
 		param.put("temporaryPassword", temporaryPassword);
 		param.put("id", loginedMemberId);
 		try {
