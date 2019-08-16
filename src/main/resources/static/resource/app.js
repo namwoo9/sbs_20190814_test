@@ -126,6 +126,7 @@ function Article__drawReply(reply) {
 	var 등록날짜 = reply.regDate;
 	var 댓글번호 = reply.id;
 	var 회원번호 = reply.memberId;
+	var 관리자확인 = loginedMemberPermmisionLevel;
 	var 작성자 = reply.extra.writerName;
 	var 내용 = `
 	<div>
@@ -151,17 +152,21 @@ function Article__drawReply(reply) {
 	
 	var 내용 = $내용.html();
 	
+	
 	var 비고 = `
-	<div class="editable-item">
-		<a class="read-mode-visible" href="javascript:;" onclick='Article__enableReplyEditMode(this)'>수정</a>
-		<a class="btn-delete" href="javascript:;" onclick="Article__doDeleteReply(this);">삭제</a>
+	<div>
+		<a class="editable-item read-mode-visible" href="javascript:;" onclick='Article__enableReplyEditMode(this)'>수정</a>
+		<a class="deletable-item btn-delete" href="javascript:;" onclick="Article__doDeleteReply(this);">삭제</a>
 	</div>
 	`;
 	
 	var editableClass = '';
 	
 	if ( 회원번호 == loginedMemberId ) {
-		editableClass = 'editable';
+		editableClass = 'editable deletable';
+	}
+	else if ( 관리자확인 == 1 ) {
+		editableClass = 'deletable';		
 	}
 	
 	var html = `
@@ -187,4 +192,3 @@ function Article__drawReply(reply) {
 $(function() {
 	Article__loadNewReplies();
 });
-
