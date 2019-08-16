@@ -38,6 +38,8 @@ public class MemberServiceImpl implements MemberService {
 
 		long loginedMemberId = 0;
 
+		String loginedMemberName = "";
+
 		if (loginedMember == null) {
 			resultCode = "F-1";
 			msg = "일치하는 회원이 없습니다.";
@@ -54,8 +56,10 @@ public class MemberServiceImpl implements MemberService {
 
 		loginedMemberId = loginedMember.getId();
 
+		loginedMemberName = loginedMember.getName();
+
 		resultCode = "S-1";
-		msg = "로그인 되었습니다.";
+		msg = loginedMemberName + "님, 안녕하세요!!";
 
 		return Maps.of("resultCode", resultCode, "msg", msg, "loginedMemberId", loginedMemberId);
 	}

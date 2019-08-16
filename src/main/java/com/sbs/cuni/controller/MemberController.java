@@ -90,7 +90,7 @@ public class MemberController {
 	@RequestMapping("member/doLogout")
 	public String doLogout(HttpSession session, Model model) {
 		session.removeAttribute("loginedMemberId");
-		model.addAttribute("alertMsg", "로그아웃 되었습니다.");
+		model.addAttribute("alertMsg", "좋은 하루 되세요");
 		model.addAttribute("redirectUrl", "/member/login");
 		return "common/redirect";
 	}
